@@ -43,7 +43,7 @@ router.put("/update-contact/:id", async (req, res) => {
 
     await userdb.updateMany(art, {
       $set: {
-        number: req.body.number,
+        contact: req.body.number,
       },
     });
     res.redirect("/feed");
