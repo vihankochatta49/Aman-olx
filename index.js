@@ -30,29 +30,6 @@ mongoose
   .then(() => console.log("Connection successful..."))
   .catch((err) => console.log(err));
 
-// Socket connection for comments
-const io = require("socket.io")(4202, { cors: { origin: "*" } });
-const users = {};
-
-//new user joined
-io.on("connection", (socket) => {
-  socket.on("new-user-joined", (room, name) => {
-    socket.join(room);
-    users[socket.id] = name;
-    socket.to(room).emit("user-joined", name);
-  });
-
-  //user send message
-  socket.on("send", (room, message) => {
-    socket.to(room).emit("recieve", {
-      message: message,
-      name: users[socket.id],
-    });
-  });
-
-  //user disconnected
-  socket.on("disconnect", (message) => delete users[socket.id]);
-});
 
 //express session
 app.use(

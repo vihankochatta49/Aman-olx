@@ -254,7 +254,7 @@
     <!-- user info -->
     <div class="userInfo">
       <p class="user-name"><%= profile.name %></p>
-      <p class="user-posts">Posts: <%= blogs.length %></p>
+      <p class="user-posts">Contact: <%= profile.number %></p>
     </div>
 
     <section
@@ -310,48 +310,7 @@
 
                 <!-- date -->
                 <p class="date"><%= e.createdAt %></p>
-
-                <!-- no. of likes -->
-                <p class="like">
-                  <i class="far fa-thumbs-up"></i>
-                  <span id="<%= e.id%>"><%=e.likes%></span>
-                </p>
               </div>
-
-              <!-- uploaded image -->
-              <% if(e.imageBase64) {%>
-
-              <img
-                src="data:<%= e.contentType %>;base64,<%= e.imageBase64 %>"
-                height="150"
-                width="200"
-                style="margin: 15px"
-              />
-
-              <% } %>
-            </div>
-          </div>
-          <div class="btns" style="margin-top: 10px; align-items: center">
-            <!-- like button -->
-
-            <div class="dropdown">
-              <button
-                type="submit"
-                onclick="likePost('<%= e.id %>')"
-                class="like-btn"
-              >
-                <i class="far fa-thumbs-up"></i>
-              </button>
-            </div>
-
-            <!-- comment button -->
-            <div class="dropdown">
-              <a
-                class="like-btn"
-                href="/comment/<%= e.slug %>/<%= e.blogNumber %>/<%= profile.registerNumber %>"
-                style="margin-left: 5px"
-                ><i class="far fa-comment"></i
-              ></a>
             </div>
           </div>
         </div>
@@ -359,24 +318,5 @@
       </div>
       <%}%>
     </section>
-    <!-- script for fetching likes detail -->
-    <script>
-      function likePost(id) {
-        var totalLikes = document.getElementById(`${id}`);
-        fetch(`/like/post/${id}`, {
-          method: "PUT",
-          headers: {
-            "content-type": "application/json",
-          },
-          body: {
-            postId: id,
-          },
-        })
-          .then((res) => res.json())
-          .then((result) => {
-            totalLikes.innerHTML = result.likes;
-          });
-      }
-    </script>
   </body>
 </html>

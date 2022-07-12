@@ -22,6 +22,7 @@ const userSchema = new mongoose.Schema({
   },
   slugName: String,
   proivder: String, //for google auth
+  contact: Number,
 });
 
 userSchema.pre("validate", function (next) {

@@ -318,23 +318,8 @@
                 <!-- date -->
                 <p class="date"><%= e.createdAt %></p>
               </div>
-              <!-- no. of likes -->
-              <p class="like">
-                <i class="far fa-thumbs-up"></i> <%= e.likes %>
-              </p>
             </div>
 
-            <!-- uploaded image -->
-            <% if(e.imageBase64) {%>
-
-            <img
-              src="data:<%= e.contentType %>;base64,<%= e.imageBase64 %>"
-              height="150"
-              width="200"
-              style="margin: 15px"
-            />
-
-            <% } %>
           </div>
         </div>
         <%})%>

@@ -17,10 +17,6 @@ const schema = new mongoose.Schema({
   sanitizedHtml: { type: String, required: true },
   likes: { type: Number, default: 0 },
   roomName: String,
-  //for image
-  filename: String,
-  contentType: String,
-  imageBase64: String,
 });
 
 //pre validation

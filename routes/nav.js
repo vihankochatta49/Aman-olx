@@ -36,6 +36,22 @@ router.get("/:name", ensureAuthenticated, async (req, res) => {
   else res.render("404Page");
 });
 
+//updating contact
+router.put("/update-contact/:id", async (req, res) => {
+  try {
+    const art = await userdb.findById(req.params.id);
+
+    await userdb.updateMany(art, {
+      $set: {
+        number: req.body.number,
+      },
+    });
+    res.redirect("/feed");
+  } catch (err) {
+    console.log(err);
+  }
+});
+
 //other-profile route
 router.get("/users/profile/:name", async (req, res) => {
   const profile = await userdb.findOne({
@@ -52,17 +68,6 @@ router.get("/users/profile/:name", async (req, res) => {
 router.get("/readMore/:slug/:blogNumber", async (req, res) => {
   const blogs = await blogdb.findOne({ blogNumber: req.params.blogNumber });
   if (blogs != null) res.render("show", { blogs });
-  else res.render("404Page");
-});
-
-//comment route
-router.get("/comment/:slug/:blogNumber/:name", async (req, res) => {
-  const profile = await userdb.findOne({
-    slugName: req.params.name,
-  });
-  const blogs = await blogdb.findOne({ blogNumber: req.params.blogNumber });
-  if (blogs != null && profile != null)
-    res.render("comment", { blogs, profile });
   else res.render("404Page");
 });
 
